@@ -280,7 +280,7 @@ ob_start();
                                                                      echo"<th>Valoracion</th>";
                                                                      echo"<th>Usuario</th>";
                                                                     echo"<th>Fecha Valoracion</th>";
-                                                                    echo"<th>Borrar Valoracion</th>";
+                                              1                      echo"<th>Borrar Valoracion</th>";
                                                                     echo"</thead>";
                                                                              echo "<tr>";
                                                                              echo "<td>".$obj->titular."</td>";

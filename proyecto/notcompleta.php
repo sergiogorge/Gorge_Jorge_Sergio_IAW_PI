@@ -112,7 +112,7 @@ ob_start();
                                                       echo "$obj->comentario";
                                                        if(isset($_SESSION["tipo"])){
                                                          if($_SESSION["id"]==$obj->idUsuario || $_SESSION["tipo"]=='admin'){
-                                                           echo"<a href='borrar/borrarcom.php?id=$obj->idComentario'>
+                                                           echo"<a href='comun/borrarcom.php?id=$obj->idComentario'>
                                                            <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>";
                                                          }
                                                        }
