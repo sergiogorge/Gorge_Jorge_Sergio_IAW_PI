@@ -16,62 +16,9 @@ $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
 	where n.idCategoria = c.idCategoria
 	group by n.idCategoria;")) {
                        $obj = $result->fetch_object();	
+$array=array("categoria","noticias");
+$array1=array($obj->valor,$obj->num);
 
-stdClass Object
-(
-    [cols] => Array
-        (
-            [0] => stdClass Object
-                (
-                    [id] => 
-                    [label] => Categorias
-                    [pattern] => 
-                    [type] => string
-                )
-
-            [1] => stdClass Object
-                (
-                    [id] => 
-                    [label] => Numero_noticias
-                    [pattern] => 
-                    [type] => number
-                )
-
-        )
-
-    [rows] => Array
-        (
-            [0] => stdClass Object
-                (
-                    [c] => Array
-                        (
-                            [0] => stdClass Object
-                                (
-                                    [v] => 
-                                    [f] => 
-                                )
-
-                            [1] => stdClass Object
-                                (
-                                    [v] => 	
-                                    [f] => 
-                                )
-
-                        )
-
-                )
-
-            
-
-          
-
-                        )
-
-                )
-
-        )
-
-)
                        $result->close();
 	                       unset($obj);
                        unset($connection);
