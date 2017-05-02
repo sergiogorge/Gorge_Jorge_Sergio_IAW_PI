@@ -185,7 +185,7 @@ ob_start();
                                                      echo '<form  name="valorar" id="valorar" novalidate method="post">';
                                                      echo'<div class="row control-group">';
                                                          echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
-                                                           echo'<select name="val">';
+                                                           echo'<select name="val" style="color:black;">';
                                                                 echo'<option>0</option>';
                                                                 echo'<option>1</option>';
                                                                 echo'<option>2</option>';
@@ -226,6 +226,23 @@ ob_start();
                                                        }
                                                        unset($connection);
 
+                                                       if (isset($_SESSION["tipo"])){
+
+                                      $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                            if ($connection->connect_errno) {
+                                printf("Connection failed: %s\n", $connection->connect_error);
+                                exit();
+                            }
+                                       if ($result = $connection->query("SELECT *
+                                          FROM noticia  where idnoticia='$a';")) {
+                                                                                         while($obj = $result->fetch_object()) {
+
+                                                                echo"<a href='pruebapdf.php?id=$obj->idNoticia''>
+                                                 <i type='submit' class='glyphicon glyphicon-print' name='imprimir'></i></a>
+                                                 </td>";
+                                                       }
+                                                     }
+                                                     }
                             ?>
 
                 </div>

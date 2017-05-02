@@ -9,7 +9,7 @@ $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
 
 // Consulta que genera los valores de la grafica
 
-  $query="select tipo as valor, count(idUsuario) as num
+  $query="select tipo , count(idUsuario) as num
   from usuarios group by tipo";      
 
 // Inicializamos el array
@@ -40,7 +40,7 @@ if ($result = $connection->query($query)) {
   while($obj = $result->fetch_object()) {
     $array['rows'][]['c'] = array(
       array(
-        'v' => $obj->valor,
+        'v' => $obj->tipo,
         'f' => null
       ),
       array(
