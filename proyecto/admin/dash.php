@@ -63,12 +63,25 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+<?php
+    include("header.php");
+   ?>
 </head>
 <body>
-</body>
-<div id="chart_div"></div>
+   <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" id="chart_div">
+
+   </div>
 <?php
 include("footer.php");
 ?>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="../js/clean-blog.min.js"></script>
+
+</body>
 </html>

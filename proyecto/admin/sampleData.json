@@ -1,12 +1,1 @@
-{
-  "cols": [
-        {"id":"","label":"Categorias","pattern":"","type":"string"},
-        {"id":"","label":"Numero_noticias","pattern":"","type":"number"}
-      ],
-  "rows": [
-        {"c":[{"v":"Deportes","f":null},{"v":3,"f":null}]},
-        {"c":[{"v":"Tecnologia","f":null},{"v":1,"f":null}]},
-        {"c":[{"v":"LOL","f":null},{"v":1,"f":null}]},
-
-      ]
-}
+{"cols":[{"id":"","label":"categorias","pattern":"","type":"string"},{"id":"","label":"Numero Categorias","pattern":"","type":"string"}],"rows":[{"c":[{"v":"Nacional","f":""},{"v":"1","f":""}]},{"c":[{"v":"Internacional","f":""},{"v":"2","f":""}]},{"c":[{"v":"Deportes","f":""},{"v":"1","f":""}]}]}

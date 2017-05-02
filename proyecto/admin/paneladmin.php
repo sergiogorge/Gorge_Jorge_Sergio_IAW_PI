@@ -12,7 +12,49 @@ ob_start();
 ?>
 
 <head>
+  <!--Load the AJAX API-->
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+     <script type="text/javascript">
 
+     // Load the Visualization API and the piechart package.
+     google.charts.load('current', {'packages':['corechart']});
+
+     // Set a callback to run when the Google Visualization API is loaded.
+     google.charts.setOnLoadCallback(drawChart);
+          google.charts.setOnLoadCallback(drawChart2);
+
+     function drawChart() {
+       var jsonData = $.ajax({
+           url: "getData.php",
+           dataType: "json",
+           async: false
+           }).responseText;
+
+       // Create our data table out of JSON data loaded from server.
+       var data = new google.visualization.DataTable(jsonData);
+
+       // Instantiate and draw our chart, passing in some options.
+       var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+       chart.draw(data, {width: 400, height: 240});
+     }
+        function drawChart2() {
+       var jsonData = $.ajax({
+           url: "getData2.php",
+           dataType: "json",
+           async: false
+           }).responseText;
+
+       // Create our data table out of JSON data loaded from server.
+       var data = new google.visualization.DataTable(jsonData);
+
+       // Instantiate and draw our chart, passing in some options.
+       var chart = new google.visualization.PieChart(document.getElementById('chart_div2'));
+       chart.draw(data, {width: 400, height: 240});
+     }
+
+
+     </script>
     <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -113,6 +155,8 @@ ob_start();
                                              unset($connection);
                                            }
                                           ?>
+                                                                                               <div  id="chart_div2">  </div>
+
                 </div>
                 </div>
                 </div>
@@ -182,6 +226,7 @@ ob_start();
 
                                                       }
                                                      ?>
+                                                     <div  id="chart_div">  </div>
                                  </div>
                                </div>
                                </div>
@@ -278,9 +323,9 @@ ob_start();
                                                                      echo"<tr>";
                                                                      echo"<th>Noticia </th>";
                                                                      echo"<th>Valoracion</th>";
-                                                                     echo"<th>Usuario</th>";
+                                                                    echo"<th>Usuario</th>";
                                                                     echo"<th>Fecha Valoracion</th>";
-                                              1                      echo"<th>Borrar Valoracion</th>";
+                                                                    echo"<th>Borrar Valoracion</th>";
                                                                     echo"</thead>";
                                                                              echo "<tr>";
                                                                              echo "<td>".$obj->titular."</td>";

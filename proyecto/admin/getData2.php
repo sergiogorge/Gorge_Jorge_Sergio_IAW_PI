@@ -8,12 +8,9 @@ $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
 
 
 // Consulta que genera los valores de la grafica
-$query = "select c.valor, count(n.idCategoria) as num
-          from noticia as n, categorias as c
-          where n.idCategoria = c.idCategoria
-          group by n.idCategoria";
-  /*$query="select tipo as valor, count(idUsuario) as num
-  from usuarios group by tipo"; */       
+
+  $query="select tipo as valor, count(idUsuario) as num
+  from usuarios group by tipo";      
 
 // Inicializamos el array
 $array = array();
@@ -25,14 +22,14 @@ if ($result = $connection->query($query)) {
 
   $array['cols'][] = array(
     'id' => '',
-    'label' => 'categorias',
+    'label' => 'tipousuarios',
     'pattern' => '',
     'type' => 'string'
   );
 
   $array['cols'][] = array(
     'id' => '',
-    'label' => 'NumeroCategorias',
+    'label' => 'Numerousuarios',
     'pattern' => '',
     'type' => 'string'
   );

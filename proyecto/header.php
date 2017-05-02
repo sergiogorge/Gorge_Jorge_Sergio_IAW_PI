@@ -40,15 +40,7 @@
              }
           ?>
         </li>
-        <li>
-           <?php
-           if (isset($_SESSION["tipo"])){
-          if ($_SESSION["tipo"]=='admin'){
-          echo '<a href="admin/dash.php">Dashboard.</a>';
-          }
-          }
-       ?>
-     </li>
+   
              </ul>
         </div>
         <!-- /.navbar-collapse -->
