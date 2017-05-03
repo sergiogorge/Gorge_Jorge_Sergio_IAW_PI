@@ -85,10 +85,10 @@ ob_start();
                                                  echo "</div>";
                                                  if($obj->fModificacion!=NULL) {
                                                    echo'<b><p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'. Modificada el '.$obj->fModificacion.'</b></p>';
-                                                   echo "<p class='text-justify'>$obj->cuerpo</p>";
+                                                   echo "<p class='text-justify'>$obj->cuerpo</p>\n";
                                                  }else{
                                                    echo'<b><p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'</b></p>';
-                                                   echo "<p class='text-justify'>$obj->cuerpo</p>";
+                                                   echo "<p class='text-justify'>$obj->cuerpo</p>\n";
 
                                                  }
                                                }

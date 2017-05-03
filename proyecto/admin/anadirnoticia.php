@@ -159,7 +159,8 @@ include_once("header.php");
                      }
                     $categoria=$_POST["categoria"];
                     $titular = $_POST['titular'];
-                    $cuerpo = nl2br($_POST['cuerpo']);
+                    //$_POST['cuerpo']=$_POST['cuerpo']."<br><br>"; 
+                    $cuerpo = $_POST['cuerpo'];
                     $id = $_SESSION["id"];
             $consulta="INSERT INTO noticia (`idNoticia`, `titular`, `cuerpo`, `fCreacion`, `fPublicacion`, `fModificacion`, `idUsuario`, `idCategoria`, `image`)
              VALUES(NULL ,'$titular','$cuerpo',sysdate(),sysdate(),NULL,'$id','$categoria','$target_file')";

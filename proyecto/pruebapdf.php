@@ -1,6 +1,7 @@
 	<?php
-	require("libreria/fpdf.php");
+	require("WriteHTML.php");
 	  $a=$_GET['id'];
+
 	 $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
 
 	                          if ($connection->connect_errno) {
@@ -10,15 +11,19 @@
 	                                     if ($result = $connection->query("SELECT *
 	                                        FROM noticia  where idnoticia='$a';")) {
 	                                             while($obj = $result->fetch_object()) {
-	                                             	$pdf=new FPDF();
+	                                             	$pdf=new PDF_HTML();
 	                                             	$pdf->AddPage();
 	                                             	$pdf->SetFont('Arial','',14);
 	                                             	$titular = stripslashes($obj->titular);
 													$titular = iconv('UTF-8', 'windows-1252', $titular);
-	                                             	$pdf->MultiCell(0,10,$titular,0,'C');
+	                                             	$pdf->WriteHTML($titular,'FJ');
+	                                             	$pdf->ln(50);
+	                                             	$imagen="admin/$obj->image";
+	                                             	$pdf->Image($imagen,30,30,-500);
+	                                                $pdf->ln(50);
 	                                             	$cuerpo = stripslashes($obj->cuerpo);
 													$cuerpo = iconv('UTF-8', 'windows-1252', $cuerpo);
-	                                             	$pdf->MultiCell(190,10,$cuerpo,0,"L",false);
+	                                             	$pdf->WriteHTML($cuerpo);
 	                                             	$pdf->output();
 	                                             	}
 	                                             }
