@@ -2,6 +2,8 @@
 <html lang="en">
 <?php
   session_start();
+          require("conexionbd.php");
+          die($moro);
 ?>
 
 <head>
@@ -16,7 +18,7 @@
     <?php
     include("selectema.php");
     ?>
-  
+
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -63,7 +65,6 @@
 
 
                           <?php
-                                require("conexionbd.php");   
                                     if ($result = $connection->query("SELECT *
                                         FROM noticia join usuarios on noticia.idusuario
                                         =usuarios.idusuario order by idnoticia DESC limit 3  ;")) {
