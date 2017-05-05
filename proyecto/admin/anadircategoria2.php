@@ -83,12 +83,7 @@ include_once("header.php");
     </div>
   <?php else :?>
 <?php
-$connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-if ($connection->connect_errno) {
-    printf("Connection failed: %s\n", $connection->connect_error);
-    exit();
-}
+require("../conexionbd.php");   
  $categoria=$_POST["ncategoria"];
 $cons="SELECT * FROM categorias WHERE valor = '$categoria'";
 $result2  = $connection->query($cons);

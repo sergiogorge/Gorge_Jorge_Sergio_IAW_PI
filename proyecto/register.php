@@ -101,20 +101,17 @@
     </div>
 <?php else : ?>
   <?php
-        $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-         if ($connection2->connect_errno) {
-           printf("Connection failed: %s\n", $connection->connect_error);
-           exit();
-         }
+      require_once("conexionbd.php");
+
         $userName = $_POST['nombreusu'];
         $password = $_POST['newpassword'];
         $email = $_POST['newemail'];
         $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$userName'  AND password = md5('$password') OR email='$email' " ;
-        $result2 = $connection2->query($cons);
-        if ($result2->num_rows==0) {
+        $result = $connection->query($cons);
+        if ($result->num_rows==0) {
         $consulta= "INSERT INTO usuarios (idUsuario,tipo,password,email,nombre_usuario,fecha_registro)
         VALUES (NULL,'comun',md5('$password'),'$email','$userName',sysdate())";
-        $result = $connection2->query($consulta);
+        $result = $connection->query($consulta);
         if (!$result) {
            echo "error";
         } else {

@@ -69,12 +69,7 @@
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nuevo nombre usuario</label>
                             <?php
-                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                            if ($connection->connect_errno) {
-                                printf("Connection failed: %s\n", $connection->connect_error);
-                                exit();
-                            }
+                                        require_once("../conexionbd.php");   
                                         if ($result = $connection->query("SELECT nombre_usuario
                                     FROM usuarios where idusuario='$a';")) {
                                     while($obj = $result->fetch_object()) {

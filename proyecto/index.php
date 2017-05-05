@@ -16,6 +16,7 @@
     <?php
     include("selectema.php");
     ?>
+  
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -62,11 +63,8 @@
 
 
                           <?php
-                          $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                          if ($connection->connect_errno) {
-                              printf("Connection failed: %s\n", $connection->connect_error);
-                              exit();
-                          }                                     if ($result = $connection->query("SELECT *
+                                require("conexionbd.php");   
+                                    if ($result = $connection->query("SELECT *
                                         FROM noticia join usuarios on noticia.idusuario
                                         =usuarios.idusuario order by idnoticia DESC limit 3  ;")) {
 

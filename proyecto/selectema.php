@@ -1,10 +1,7 @@
 <?php
     if (isset($_SESSION["tipo"])){
-     $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-            if ($connection->connect_errno) {
-                printf("Connection failed: %s\n", $connection->connect_error);
-                    exit();
-                    }
+        require_once("conexionbd.php");
+
                      $user=$_SESSION["id"];
                   $cons= "select tema from usuarios where idUsuario=$user";
                   if ($result = $connection->query($cons)){

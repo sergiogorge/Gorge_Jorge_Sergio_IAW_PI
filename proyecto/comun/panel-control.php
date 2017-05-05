@@ -68,12 +68,7 @@ ob_start();
                       <?php
 
                                      $user=$_SESSION['username'];
-                                     $connection= new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                      if ($connection->connect_errno) {
-                                        printf("Connection failed: %s\n", $connection->connect_error);
-                                        exit();
-                                        }
-
+                                    require_once("../conexionbd.php");   
                                      if ($result = $connection->query("SELECT *
                                         FROM usuarios where nombre_usuario='$user';")) {
                                          echo"<table style='border:1px solid black'>";

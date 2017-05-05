@@ -1,7 +1,4 @@
 <?php
-session_start();
-?>
-<?php
  if (isset($_SESSION["tipo"])){
  echo '<form name="tema" id="tema" novalidate method="post">';
  echo'<label>Tema</label>';

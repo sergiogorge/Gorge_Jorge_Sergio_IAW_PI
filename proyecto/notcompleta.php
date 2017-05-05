@@ -67,12 +67,7 @@ ob_start();
            ?>
             <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
                           <?php
-                          $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                          if ($connection->connect_errno) {
-                              printf("Connection failed: %s\n", $connection->connect_error);
-                              exit();
-                          }
+                                      require("conexionbd.php");
                                      if ($result = $connection->query("SELECT *
                                         FROM noticia  join usuarios on noticia.idusuario
                                         =usuarios.idusuario where idnoticia='$a';")) {
@@ -96,11 +91,6 @@ ob_start();
                                              unset($obj);
                                            }
                                            echo "<h2>COMENTARIOS</h2>";
-                                           $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                           if ($connection->connect_errno) {
-                                               printf("Connection failed: %s\n", $connection->connect_error);
-                                               exit();
-                                           }
                                            if ($result = $connection->query("SELECT *
                                               FROM comentarios join noticia on comentarios.idnoticia
                                               =noticia.idNoticia join usuarios on comentarios.idUsuario=usuarios.idusuario where noticia.idnoticia='$a' order by idcomentario DESC;")) {
@@ -123,11 +113,7 @@ ob_start();
                                                  }
                                                }
                                                echo "<h2>NOTA MEDIA</h2>";
-                                                $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                               if ($connection->connect_errno) {
-                                                   printf("Connection failed: %s\n", $connection->connect_error);
-                                                   exit();
-                                             }
+                                             
 
                                                           if ($result = $connection->query("SELECT avg(nota) as medianota, idnoticia
                                                           from valoraciones where idnoticia='$a' ;")) {
@@ -165,11 +151,7 @@ ob_start();
                                                      echo'</div>';
                                                      echo'<button type="submit" class="btn btn-default" name="comentar">Enviar comentario</button>';
                                                      if (isset($_POST["comentar"])){
-                                                       $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                                        if ($connection->connect_errno) {
-                                                          printf("Connection failed: %s\n", $connection->connect_error);
-                                                          exit();
-                                                          }
+                                                      
                                                        $com= nl2br($_POST["com"]);
                                                        $user=$_SESSION["id"];
                                                        $consulta= "INSERT INTO comentarios (idcomentario,idnoticia,idusuario,comentario,fcreacionc)
@@ -203,11 +185,7 @@ ob_start();
                                                               echo '</div>';
                                                               echo '</div>';
                                                       if (isset($_POST["valorar"])){
-                                                        $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                                         if ($connection->connect_errno) {
-                                                           printf("Connection failed: %s\n", $connection->connect_error);
-                                                           exit();
-                                                           }
+                                                        
                                                         $val= $_POST["val"];
                                                         $user=$_SESSION["id"];
                                                         $cons= "INSERT INTO valoraciones (idvaloracion,idnoticia,idusuario,nota,fvaloracion)
@@ -224,15 +202,8 @@ ob_start();
                                                          echo "<a href=sesion.php>Inicia sesión</a> para valorar y comentar";
                                                          echo "<br>";
                                                        }
-                                                       unset($connection);
 
                                                        if (isset($_SESSION["tipo"])){
-
-                                      $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                            if ($connection->connect_errno) {
-                                printf("Connection failed: %s\n", $connection->connect_error);
-                                exit();
-                            }
                                        if ($result = $connection->query("SELECT *
                                           FROM noticia  where idnoticia='$a';")) {
                                                                                          while($obj = $result->fetch_object()) {
@@ -243,6 +214,7 @@ ob_start();
                                                        }
                                                      }
                                                      }
+                                                     unset($connection);
                             ?>
 
                 </div>
