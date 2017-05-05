@@ -3,7 +3,6 @@
 <?php
   session_start();
           require("conexionbd.php");
-          die($moro);
 ?>
 
 <head>

@@ -5,4 +5,4 @@
                                   printf("Connection failed: %s\n", $connection->connect_error);
                                   exit();
                               }
-                                  ?>
+                                  
