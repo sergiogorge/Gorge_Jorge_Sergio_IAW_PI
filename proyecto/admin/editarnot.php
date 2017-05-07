@@ -110,9 +110,9 @@ if ($_SESSION["tipo"]!=='admin'){
                                               var_dump($result);
                                                while($obj = $result->fetch_object()) {
                                                  if (($obj->valor)==$cat) {
-                                                   echo "<option value='$obj2->idCategoria' selected>$obj2->valor</option>";
+                                                   echo "<option value='$obj->idCategoria' selected>$obj->valor</option>";
                                                  }else{
-                                                   echo "<option value='$obj2->idCategoria'>$obj2->valor</option>";
+                                                   echo "<option value='$obj->idCategoria'>$obj2->valor</option>";
                                                  }
                                                }
                                             echo'</select>';
