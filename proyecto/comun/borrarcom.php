@@ -1,9 +1,9 @@
 <?php
 session_start();
+require_once("../conexionbd.php");
 if (empty($_GET))
 die("Tienes que pasar algun parametro por GET.");
 $a = $_GET['id'];
-    require_once("../conexionbd.php");   
     if ($result = $connection->query("DELETE FROM comentarios
      where idcomentario='$a'")) {
       echo "El comentario $a ha sido borrado con éxito.<br>";
@@ -11,4 +11,8 @@ $a = $_GET['id'];
     } else {
         mysqli_error($connection);
   }
+  $result->close();
+ unset($obj);
+ unset($connection);
+
 ?>

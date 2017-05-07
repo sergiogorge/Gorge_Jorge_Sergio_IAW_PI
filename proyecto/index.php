@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
   session_start();
-          require("conexionbd.php");
+require_once("conexionbd.php");
 ?>
 
 <head>
@@ -57,9 +57,12 @@
     <!-- Main Content -->
     <div class="container">
         <div class="row">
+
           <?php
           include("categoriaslist.php");
            ?>
+
+    
             <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
 
 

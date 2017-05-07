@@ -5,6 +5,7 @@
   if (isset($_SESSION["tipo"])){
   header("Location:error2.php");
 }
+require_once("conexionbd.php");
 ?>
 
 <head>
@@ -101,7 +102,6 @@
     </div>
 <?php else : ?>
   <?php
-      require_once("conexionbd.php");
 
         $userName = $_POST['nombreusu'];
         $password = $_POST['newpassword'];
@@ -122,7 +122,9 @@
           echo "Ya estás registrado";
           header("Refresh:2; url=index.php");
         }
-
+         $result->close();
+        unset($obj);
+        unset($connection);
   ?>
 <?php endif ?>
 

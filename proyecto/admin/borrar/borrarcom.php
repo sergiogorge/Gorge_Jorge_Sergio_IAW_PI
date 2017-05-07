@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once("../../conexionbd.php");
 if ($_SESSION["tipo"]!=='admin'){
    session_destroy();
     header("Location:../error.php");
@@ -7,11 +8,6 @@ if ($_SESSION["tipo"]!=='admin'){
 if (empty($_GET))
 die("Tienes que pasar algun parametro por GET.");
 $a = $_GET['id'];
-$connection= new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
- if ($connection->connect_errno) {
-   printf("Connection failed: %s\n", $connection->connect_error);
-   exit();
-   }
     if ($result = $connection->query("DELETE FROM comentarios
      where idcomentario='$a'")) {
       echo "El comentario $a ha sido borrado con éxito.<br>";
@@ -19,4 +15,7 @@ $connection= new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
     } else {
         mysqli_error($connection);
   }
+   $result->close();
+ unset($obj);
+ unset($connection);
 ?>

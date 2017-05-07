@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 session_start();
+require_once("../conexionbd.php");
 if ($_SESSION["tipo"]!=='admin'){
   session_destroy();
   header("Location:error.php");
@@ -84,11 +85,7 @@ if ($_SESSION["tipo"]!=='admin'){
   <?php else: ?>
     <?php
     $imagen="";
-    $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-    if ($connection->connect_errno) {
-        printf("Connection failed: %s\n", $connection->connect_error);
-        exit();
-    }
+    
                if ($result = $connection->query("SELECT noticia.*
                   FROM noticia where idNoticia='$a';")) {
                        $obj = $result->fetch_object();
@@ -127,12 +124,7 @@ if ($_SESSION["tipo"]!=='admin'){
             //Put the file in its place
             move_uploaded_file($tmp_file, $target_file);
             //CREATING THE CONNECTION
-            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-             //TESTING IF THE CONNECTION WAS RIGHT
-             if ($connection->connect_errno) {
-               printf("Connection failed: %s\n", $connection->connect_error);
-                 exit();
-               }
+
       $consulta="UPDATE `noticia` SET `image` = '$target_file'
        WHERE `noticia`.`idnoticia` = '$a' ";
       $result = $connection->query($consulta);

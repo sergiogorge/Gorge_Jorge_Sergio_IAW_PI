@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
   session_start();
+  require_once("../conexionbd.php");
   if ($_SESSION["tipo"]!=='admin'){
    session_destroy();
     header("Location:error.php");
@@ -74,7 +75,6 @@ include_once("header.php");
                             <label>Categoría</label>
                             <select class="form-control" name="categoria" placeholder="Categoría" id="cat">
                               <?php
-                              require("../conexionbd.php");
                                          if ($result = $connection->query("SELECT *
                                             FROM categorias order by idCategoria;")) {
                                                  while($obj = $result->fetch_object()) {
@@ -145,13 +145,7 @@ include_once("header.php");
                 if ($valid) {
                   //Put the file in its place
                     move_uploaded_file($tmp_file,$target_file);
-                  //CREATING THE CONNECTION
-                  $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                   //TESTING IF THE CONNECTION WAS RIGHT
-                   if ($connection->connect_errno) {
-                     printf("Connection failed: %s\n", $connection->connect_error);
-                       exit();
-                     }
+                
                     $categoria=$_POST["categoria"];
                     $titular = $_POST['titular'];
                     //$_POST['cuerpo']=$_POST['cuerpo']."<br><br>"; 
@@ -174,7 +168,9 @@ include_once("header.php");
             }
 
             }
-
+            $result->close();
+           unset($obj);
+           unset($connection);
             ?>
 
           <?php endif ?>

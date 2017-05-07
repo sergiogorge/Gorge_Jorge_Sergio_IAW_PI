@@ -1,7 +1,5 @@
 <?php
     if (isset($_SESSION["tipo"])){
-        require_once("conexionbd.php");
-
                      $user=$_SESSION["id"];
                   $cons= "select tema from usuarios where idUsuario=$user";
                   if ($result = $connection->query($cons)){

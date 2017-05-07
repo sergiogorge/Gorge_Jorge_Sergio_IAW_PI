@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
   session_start();
+  require_once("../conexionbd.php");
   //Bucle que si $_GET no tiene nada, diga que hay que pasar algo
   if (empty($_GET))
   die("Tienes que pasar algun parametro por GET.");
@@ -69,15 +70,11 @@
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nuevo nombre usuario</label>
                             <?php
-                                        require_once("../conexionbd.php");   
                                         if ($result = $connection->query("SELECT nombre_usuario
                                     FROM usuarios where idusuario='$a';")) {
                                     while($obj = $result->fetch_object()) {
                                     echo'<input type="text" name="nombreusu" class="form-control" placeholder="Nombre usuario actual: '.$obj->nombre_usuario.'" id="name"  required>';
                                     }
-                                    $result->close();
-                                    unset($obj);
-                                    unset($connection);
                                   }
                                   ?>
                             <p class="help-block text-danger"></p>
@@ -87,20 +84,12 @@
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nuevo email</label>
                             <?php
-                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                            if ($connection->connect_errno) {
-                                printf("Connection failed: %s\n", $connection->connect_error);
-                                exit();
-                            }
+                           
                                         if ($result = $connection->query("SELECT email
                                     FROM usuarios where idusuario='$a';")) {
                                     while($obj = $result->fetch_object()) {
                                     echo'<input type="email" name="newemail" class="form-control" placeholder="Email actual: '.$obj->email.'" id="nemail" required>';
                                     }
-                                    $result->close();
-                                    unset($obj);
-                                    unset($connection);
                                   }
                                   ?>
                             <p class="help-block text-danger"></p>
@@ -110,20 +99,13 @@
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nueva contraseña</label>
                             <?php
-                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                            if ($connection->connect_errno) {
-                                printf("Connection failed: %s\n", $connection->connect_error);
-                                exit();
-                            }
+                          
                                         if ($result = $connection->query("SELECT password
                                     FROM usuarios where idusuario='$a';")) {
                                     while($obj = $result->fetch_object()) {
                                     echo'<input type="password" name="newpassword" class="form-control" placeholder="Nueva contraseña" id="npassword" required>';
                                     }
-                                    $result->close();
-                                    unset($obj);
-                                    unset($connection);
+                                 
                                   }
                                   ?>
 
@@ -150,31 +132,27 @@
     </div>
   <?php else: ?>
     <?php
-       $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-        if ($connection2->connect_errno) {
-          printf("Connection failed: %s\n", $connection2->connect_error);
-          exit();
-          }
+      
           $username = $_POST['nombreusu'];
           $password = $_POST['newpassword'];
           $email = $_POST['newemail'];
           $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$username'  OR email='$email' ";
-          $result2  = $connection2->query($cons);
-          if ($result2->num_rows==0) {
+          $result  = $connection->query($cons);
+          if ($result->num_rows==0) {
             if(isset($_POST['nombreusu']) && $_POST['nombreusu']!=="" ){
           $consulta= "UPDATE `usuarios` SET `nombre_usuario` = '$username'
            WHERE `usuarios`.`idusuario` = '$a' ";
-          $result = $connection2->query($consulta);
+          $result = $connection->query($consulta);
            }
           if(isset($_POST['newemail']) && $_POST['newemail']!=="" ){
             $consulta= "UPDATE `usuarios` SET `email` = '$email'
              WHERE `usuarios`.`idusuario` = '$a' ";
-            $result = $connection2->query($consulta);
+            $result = $connection->query($consulta);
           }
           if(isset($_POST['newpassword']) && $_POST['newpassword']!=="" ){
             $consulta= "UPDATE `usuarios` SET `password` = md5('$password')
              WHERE `usuarios`.`idusuario` = '$a' ";
-            $result = $connection2->query($consulta);
+            $result = $connection->query($consulta);
             }
             if (!$result) {
                echo "error";
@@ -190,6 +168,9 @@
           echo "Esos datos están en uso";
           header("Refresh:2; url=index.php");
         }
+ unset($obj);
+ unset($connection);
+
      ?>
    <?php endif ?>
         <?php

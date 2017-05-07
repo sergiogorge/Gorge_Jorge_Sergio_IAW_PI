@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 session_start();
+require_once("../conexionbd.php");
 if ($_SESSION["tipo"]!=='admin'){
   session_destroy();
   header("Location:error.php");
@@ -72,20 +73,12 @@ if ($_SESSION["tipo"]!=='admin'){
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nuevo titular</label>
                             <?php
-                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                            if ($connection->connect_errno) {
-                                printf("Connection failed: %s\n", $connection->connect_error);
-                                exit();
-                            }
+                           
                                         if ($result = $connection->query("SELECT titular
                                     FROM noticia where idnoticia='$a';")) {
                                     while($obj = $result->fetch_object()) {
                                     echo'<input type="text" name="ntitular" class="form-control" value="'.$obj->titular.'" id="titular" required>';
                                     }
-                                    $result->close();
-                                    unset($obj);
-                                    unset($connection);
                                   }
                                   ?>
                             <p class="help-block text-danger"></p>
@@ -95,21 +88,13 @@ if ($_SESSION["tipo"]!=='admin'){
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nuevo cuerpo</label>
                             <?php
-                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                            if ($connection->connect_errno) {
-                                printf("Connection failed: %s\n", $connection->connect_error);
-                                exit();
-                            }
+                          
                                         if ($result = $connection->query("SELECT noticia.cuerpo,categorias.valor
                                     FROM noticia join categorias on noticia.idCategoria=categorias.idCategoria where idnoticia='$a';")) {
                                     while($obj = $result->fetch_object()){
                                     $cat=$obj->valor;
                                     echo'<textarea rows="5" class="form-control" name="ncuerpo" id="cuerpo" required>'.$obj->cuerpo.'</textarea>';
                                     }
-                                    $result->close();
-                                    unset($obj);
-                                    unset($connection);
                                   }
                                   ?>
                                 <p class="help-block text-danger"></p>
@@ -119,25 +104,17 @@ if ($_SESSION["tipo"]!=='admin'){
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                           <label>Categoría</label>
                             <?php
-                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                            if ($connection->connect_errno) {
-                                printf("Connection failed: %s\n", $connection->connect_error);
-                                exit();
-                            }
-                                       if ($result2 = $connection->query("SELECT *  FROM categorias order by idCategoria;")) {
+                            
+                                       if ($result = $connection->query("SELECT *  FROM categorias order by idCategoria;")) {
                                             echo'<select class="form-control" name="ncategoria" placeholder="Categoría" id="cat">';
-                                              var_dump($result2);
-                                               while($obj2 = $result2->fetch_object()) {
-                                                 if (($obj2->valor)==$cat) {
+                                              var_dump($result);
+                                               while($obj = $result->fetch_object()) {
+                                                 if (($obj->valor)==$cat) {
                                                    echo "<option value='$obj2->idCategoria' selected>$obj2->valor</option>";
                                                  }else{
                                                    echo "<option value='$obj2->idCategoria'>$obj2->valor</option>";
                                                  }
                                                }
-                                               $result2->close();
-                                               unset($obj2);
-                                               unset($connection);
                                             echo'</select>';
                                              }
                             ?>
@@ -158,11 +135,7 @@ if ($_SESSION["tipo"]!=='admin'){
     </div>
   <?php else: ?>
     <?php
-       $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-        if ($connection->connect_errno) {
-          printf("Connection failed: %s\n", $connection->connect_error);
-          exit();
-          }
+       
           $titular = $_POST['ntitular'];
           $cuerpo = nl2br($_POST['ncuerpo']);
         $categoria = $_POST['ncategoria'];
@@ -189,6 +162,8 @@ if ($_SESSION["tipo"]!=='admin'){
                echo "Datos cambiados";
                header("Refresh:1; url=paneladmin.php");
             }
+ unset($obj);
+ unset($connection);
 
      ?>
    <?php endif ?>

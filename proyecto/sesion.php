@@ -5,6 +5,7 @@
   if (isset($_SESSION["tipo"])){
     header("Location:error2.php");
   }
+  require_once("conexionbd.php");
 ?>
 
 <head>
@@ -92,7 +93,6 @@
     </div>
 <?php else :?>
 <?php
-    require("conexionbd.php");
 
 $consulta="select * from usuarios where
 nombre_usuario='".$_POST["nombre"]."' and password=md5('".$_POST["password"]."');";
@@ -128,6 +128,9 @@ echo "<br>";
   echo "<br><a href='sesion.php'>Volver a Intentarlo</a>";
 
 }
+ $result->close();
+ unset($obj);
+ unset($connection);
  ?>
 <?php endif ?>
 

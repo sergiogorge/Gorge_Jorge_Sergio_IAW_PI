@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
   session_start();
+  require_once("../conexionbd.php");
   if ($_SESSION["tipo"]!=='admin'){
    session_destroy();
     header("Location:error.php");
@@ -84,7 +85,6 @@ include_once("header.php");
     </div>
   <?php else :?>
 <?php
-require("../conexionbd.php");   
  $categoria=$_POST["ncategoria"];
 $cons="SELECT * FROM categorias WHERE valor = '$categoria'";
 $result2  = $connection->query($cons);
@@ -107,7 +107,9 @@ if ($result2->num_rows==0) {
 }else{
   echo "Esa categoria ya existe";
 }
-
+ $result->close();
+ unset($obj);
+ unset($connection);
 
             ?>
 

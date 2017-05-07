@@ -7,6 +7,7 @@ ob_start();
   die("Tienes que pasar algun parametro por GET.");
   $a=$_GET['id'];
   $geturl=http_build_query($_GET);
+  require_once("conexionbd.php");
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +66,6 @@ ob_start();
             <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
                           <?php
     if (isset($_SESSION["tipo"])){
-     require_once("conexionbd.php");
                      $user=$_SESSION["id"];
                   $cons= "select tema from usuarios where idUsuario=$user";
                   if ($result = $connection->query($cons)){
@@ -144,8 +144,6 @@ ob_start();
                                                                  }
                                                                }
                    }
-                                                                  $result->close();
-                                                                  unset($obj);
 
                                                                 }
                                                    if (isset($_SESSION["tipo"])){
@@ -224,6 +222,9 @@ ob_start();
                                                        }
                                                      }
                                                      }
+                                                     
+                                                                  $result->close();
+                                                                  unset($obj);
                                                      unset($connection);
                             ?>
 

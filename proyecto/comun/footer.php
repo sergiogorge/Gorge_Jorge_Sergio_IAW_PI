@@ -10,12 +10,7 @@
  echo'<button type="submit" class="btn btn-default" name="tema">Elegir tema</button>';
 
 if (isset($_POST["tema"])){
-         $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-         if ($connection->connect_errno) {
-             printf("Connection failed: %s\n", $connection->connect_error);
-                 exit();
-                 }
-                 $t= $_POST["te"];
+                         $t= $_POST["te"];
                $user=$_SESSION["id"];
                $cons= "update usuarios set tema='$t' where idUsuario='$user'";
                                                    $result= $connection->query($cons);
@@ -26,6 +21,10 @@ if (isset($_POST["tema"])){
                                                       }
                                                       }
                                                     }
+                                                    $result->close();
+ unset($obj);
+ unset($connection);
+
 
  ?>
 <hr>

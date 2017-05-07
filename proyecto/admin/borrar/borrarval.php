@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once("../../conexionbd.php");
 if ($_SESSION["tipo"]!=='admin'){
    session_destroy();
     header("Location:../error.php");
@@ -19,4 +20,7 @@ $connection= new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
     } else {
         mysqli_error($connection);
   }
+   $result->close();
+ unset($obj);
+ unset($connection);
 ?>

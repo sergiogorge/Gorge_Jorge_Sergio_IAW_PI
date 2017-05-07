@@ -22,4 +22,7 @@
 	                                             	$pdf->output();
 	                                             	}
 	                                             }
+	                                              $result->close();
+ 													unset($obj);
+ 												unset($connection);
 	?>

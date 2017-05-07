@@ -5,6 +5,7 @@ ob_start();
 <html lang="en">
 <?php
   session_start();
+  require_once("../conexionbd.php");
   if ($_SESSION["tipo"]!=='comun'){
     session_destroy();
     header("Location:error.php");
@@ -68,7 +69,6 @@ ob_start();
                       <?php
 
                                      $user=$_SESSION['username'];
-                                    require_once("../conexionbd.php");   
                                      if ($result = $connection->query("SELECT *
                                         FROM usuarios where nombre_usuario='$user';")) {
                                          echo"<table style='border:1px solid black'>";
@@ -91,9 +91,6 @@ ob_start();
                                                  echo "</tr>";
                                                  echo "</tr>";
                                              }
-                                             $result->close();
-                                             unset($obj);
-                                             unset($connection);
                                            }
                       echo"</table>";
                       ?>

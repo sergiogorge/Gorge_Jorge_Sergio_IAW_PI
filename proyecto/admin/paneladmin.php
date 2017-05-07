@@ -5,6 +5,7 @@ ob_start();
 <html lang="en">
 <?php
   session_start();
+  require_once("../conexionbd.php");
  if ($_SESSION["tipo"]!=='admin'){
   session_destroy();
   header("Location:error.php");
@@ -109,11 +110,6 @@ ob_start();
                       <div class="form-group col-xs-12 floating-label-form-group controls">
                           <h2>USUARIOS</h2>
                           <?php
-                          $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                          if ($connection->connect_errno) {
-                              printf("Connection failed: %s\n", $connection->connect_error);
-                              exit();
-                          }
                                      $user=$_SESSION['username'];
                                      if ($result = $connection->query("SELECT *
                                         FROM usuarios;")) {
@@ -150,9 +146,6 @@ ob_start();
                                              }
                                              echo"</table>";
                                            }
-                                             $result->close();
-                                             unset($obj);
-                                             unset($connection);
                                            }
                                           ?>
                                                                                                <div  id="chart_div2">  </div>
@@ -175,11 +168,7 @@ ob_start();
                          <div class="form-group col-xs-12 floating-label-form-group controls">
                               <h2>NOTICIAS</h2>
                               <?php
-                              $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                              if ($connection->connect_errno) {
-                                  printf("Connection failed: %s\n", $connection->connect_error);
-                                  exit();
-                              }
+                              
                                          if ($result = $connection->query("SELECT noticia.*,categorias.*
                                             FROM noticia join categorias on noticia.idcategoria=categorias.idcategoria;")) {
                                               if($result->num_rows==0){
@@ -220,9 +209,6 @@ ob_start();
                                                         }
                                                          echo"</table>";
                                                         }
-                                                        $result->close();
-                                                        unset($obj);
-                                                        unset($connection);
 
                                                       }
                                                      ?>
@@ -280,9 +266,6 @@ ob_start();
                                                             echo"</table>";
 
                                                         }
-                                                        $result->close();
-                                                        unset($obj);
-                                                        unset($connection);
                                                       }
 
                                                      ?>
@@ -304,11 +287,7 @@ ob_start();
                                                  <div class="form-group col-xs-12 floating-label-form-group controls">
                                                       <h2>VALORACIONES</h2>
                                                       <?php
-                                                      $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                                      if ($connection->connect_errno) {
-                                                          printf("Connection failed: %s\n", $connection->connect_error);
-                                                          exit();
-                                                      }
+                                                     
 
                                                                  if ($result = $connection->query("SELECT valoraciones.idvaloracion,
                                                                    valoraciones.nota as valoracion,valoraciones.fvaloracion, noticia.titular,usuarios.nombre_usuario
@@ -343,9 +322,7 @@ ob_start();
 
                                                                          }
                                                                        }
-                                                                         $result->close();
-                                                                         unset($obj);
-                                                                         unset($connection);
+                                                                      
 
                                                                        }
 

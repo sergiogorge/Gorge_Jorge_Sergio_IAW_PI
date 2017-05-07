@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 session_start();
+require_once("../conexionbd.php");
 if ($_SESSION["tipo"]!=='admin'){
   session_destroy();
   header("Location:error.php");
@@ -123,22 +124,18 @@ if ($_SESSION["tipo"]!=='admin'){
     </div>
 <?php else : ?>
   <?php
-  $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-   if ($connection2->connect_errno) {
-     printf("Connection failed: %s\n", $connection->connect_error);
-     exit();
-     }
+ 
   //$id   = $_POST['adidusu'];
   $tipo   = $_POST['adtipousu'];
   $username = $_POST['adnombreusu'];
   $password = $_POST['adnewpassword'];
   $email = $_POST['adnewemail'];
   $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$username'  AND password = md5('$password') OR email='$email' ";
-  $result2 = $connection2->query($cons);
-  if ($result2->num_rows==0) {
+  $result = $connection->query($cons);
+  if ($result->num_rows==0) {
   $consulta= "INSERT INTO usuarios (idusuario,tipo,password,email,nombre_usuario,fecha_registro)
   VALUES (NULL,'$tipo',md5('$password'),'$email','$username',sysdate())";
-  $result = $connection2->query($consulta);
+  $result = $connection->query($consulta);
   if (!$result) {
      echo "error";
   } else {
@@ -149,7 +146,8 @@ if ($_SESSION["tipo"]!=='admin'){
     echo "Ese user ya está registrado";
     header("Refresh:2; url=paneladmin.php");
   }
-  unset($connection);
+ unset($obj);
+ unset($connection);
   ?>
 <?php endif ?>
     <hr>
