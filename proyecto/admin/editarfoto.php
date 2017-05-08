@@ -91,9 +91,6 @@ if ($_SESSION["tipo"]!=='admin'){
                        $obj = $result->fetch_object();
                        $imagen=$obj->image;
 
-                       $result->close();
-                       unset($obj);
-                       unset($connection);
                      }
           //Temp file. Where the uploaded file is stored temporary
           $tmp_file = $_FILES['nimage']['tmp_name'];
@@ -142,6 +139,9 @@ if ($_SESSION["tipo"]!=='admin'){
 
       }
 
+                      
+                       unset($obj);
+                       unset($connection);
       ?>
 
    <?php endif ?>
