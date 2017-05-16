@@ -21,7 +21,9 @@ ob_start();
     <meta name="author" content="">
 
     <title>Noticias Gorgé</title>
-
+<?php
+include("selectema.php");
+?>
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -65,19 +67,7 @@ ob_start();
            ?>
             <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
                           <?php
-    if (isset($_SESSION["tipo"])){
-                     $user=$_SESSION["id"];
-                  $cons= "select tema from usuarios where idUsuario=$user";
-                  if ($result = $connection->query($cons)){
-          while($obj = $result->fetch_object()){
-       echo'<link rel="stylesheet" href="vendor/bootstrap/css/'.$obj->tema.'.css" type="text/css" media="screen" />';
-       echo'<link href="css/'.$obj->tema.'.css" rel="stylesheet">';
-     }
-     }
-        } else{
-        echo'<link rel="stylesheet" href="vendor/bootstrap/css/Predeterminado.css" type="text/css" media="screen" />';
-        echo'<link href="css/Predeterminado.css" rel="stylesheet">';
-                                                         } 
+                                                         
                                                 if ($result = $connection->query("SELECT *
                                         FROM noticia  join usuarios on noticia.idusuario
                                         =usuarios.idusuario where idnoticia='$a';")) {

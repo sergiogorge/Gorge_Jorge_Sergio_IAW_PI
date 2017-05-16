@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
   session_start();
+  require_once("../conexionbd.php");
   if (empty($_GET))
   die("Tienes que pasar algun parametro por GET.");
   //Declaración de la variable item y se le introduce lo que viene de GET

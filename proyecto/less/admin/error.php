@@ -2,10 +2,9 @@
 <html lang="en">
 <?php
   session_start();
+  require_once("../conexionbd.php");    
 ?>
-<?php
-include ("selectema.php");
- ?>
+
 <head>
 
     <meta charset="utf-8">
@@ -16,11 +15,10 @@ include ("selectema.php");
 
     <title>Noticias Gorgé</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="../vendor/bootstrap/css/<?php echo $style ?>.css" type="text/css" media="screen" />
+<?php
+    include("selectema.php");
+     ?>
 
-    <!-- Theme CSS -->
-    <link href="../css/clean-blog.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">

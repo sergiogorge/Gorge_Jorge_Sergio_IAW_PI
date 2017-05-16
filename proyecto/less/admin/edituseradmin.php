@@ -5,6 +5,7 @@
 if ($_SESSION["tipo"]!=='admin'){
   session_destroy();
   header("Location:error.php");
+  require_once("../conexionbd.php");
 }
   //Bucle que si $_GET no tiene nada, diga que hay que pasar algo
   if (empty($_GET))
@@ -78,16 +79,10 @@ if ($_SESSION["tipo"]!=='admin'){
                           <label>Editar tipo usuario</label>
                              <select class="form-control" name="edtipousu" placeholder="tipousu" id="edittipousu">
                                <?php
-                               $connection= new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                if ($connection->connect_errno) {
-                                  printf("Connection failed: %s\n", $connection->connect_error);
-                                  exit();
-                                  }
-
-                               if ($result2 = $connection->query("SELECT * FROM usuarios where idusuario=$a;")) {
-                                          $obj = $result2->fetch_object();
+                              
+                               if ($result = $connection->query("SELECT * FROM usuarios where idusuario=$a;")) {
+                                          $obj = $result->fetch_object();
                                           $tipo=$obj->tipo;
-                                          $result2->close();
                                    }
                              if($tipo=='admin'){
                                echo'<option selected="selected">admin</option>';
@@ -96,8 +91,6 @@ if ($_SESSION["tipo"]!=='admin'){
                                echo'<option>admin</option>';
                                echo'<option selected="selected">comun</option>';
                              }
-                                    unset($obj);
-                                    unset($connection);
                                ?>
                              </select>
                          </div>
@@ -106,20 +99,12 @@ if ($_SESSION["tipo"]!=='admin'){
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nuevo nombre usuario</label>
                             <?php
-                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                            if ($connection->connect_errno) {
-                                printf("Connection failed: %s\n", $connection->connect_error);
-                                exit();
-                            }
+                            
                                         if ($result = $connection->query("SELECT nombre_usuario
                                     FROM usuarios where idusuario='$a';")) {
                                     while($obj = $result->fetch_object()) {
                                     echo'<input type="text" name="nombreusu" class="form-control" placeholder="Nombre usuario actual: '.$obj->nombre_usuario.'" id="name"  required>';
                                     }
-                                    $result->close();
-                                    unset($obj);
-                                    unset($connection);
                                   }
                                   ?>
                             <p class="help-block text-danger"></p>
@@ -129,20 +114,12 @@ if ($_SESSION["tipo"]!=='admin'){
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nuevo email</label>
                             <?php
-                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                            if ($connection->connect_errno) {
-                                printf("Connection failed: %s\n", $connection->connect_error);
-                                exit();
-                            }
+                           
                                         if ($result = $connection->query("SELECT email
                                     FROM usuarios where idusuario='$a';")) {
                                     while($obj = $result->fetch_object()) {
                                     echo'<input type="email" name="newemail" class="form-control" placeholder="Email actual: '.$obj->email.'" id="nemail" required>';
                                     }
-                                    $result->close();
-                                    unset($obj);
-                                    unset($connection);
                                   }
                                   ?>
                             <p class="help-block text-danger"></p>
@@ -152,20 +129,13 @@ if ($_SESSION["tipo"]!=='admin'){
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nueva contraseña</label>
                             <?php
-                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                            if ($connection->connect_errno) {
-                                printf("Connection failed: %s\n", $connection->connect_error);
-                                exit();
-                            }
+                            
                                         if ($result = $connection->query("SELECT password
                                     FROM usuarios where idusuario='$a';")) {
                                     while($obj = $result->fetch_object()) {
                                     echo'<input type="password" name="newpassword" class="form-control" placeholder="Nueva contraseña" id="npassword" required>';
                                     }
-                                    $result->close();
-                                    unset($obj);
-                                    unset($connection);
+                                  
                                   }
                                   ?>
 
@@ -192,22 +162,18 @@ if ($_SESSION["tipo"]!=='admin'){
     </div>
   <?php else: ?>
     <?php
-       $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-        if ($connection2->connect_errno) {
-          printf("Connection failed: %s\n", $connection2->connect_error);
-          exit();
-          }
+       
           $tipo= $_POST['edtipousu'];
           $username = $_POST['nombreusu'];
           $password = $_POST['newpassword'];
           $email = $_POST['newemail'];
           $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$username'  OR email='$email' ";
-          $result2  = $connection2->query($cons);
-          if ($result2->num_rows==0) {
+          $result  = $connection->query($cons);
+          if ($result->num_rows==0) {
             if(isset($_POST['edtipousu']) && $_POST['edtipousu']!=="" ){
           $consulta= "UPDATE `usuarios` SET `tipo` = '$tipo'
            WHERE `usuarios`.`idusuario` = '$a' ";
-          $result = $connection2->query($consulta);
+          $result = $connection->query($consulta);
 
            }
             if(isset($_POST['nombreusu']) && $_POST['nombreusu']!=="" ){
@@ -217,17 +183,17 @@ if ($_SESSION["tipo"]!=='admin'){
 
           $consulta= "UPDATE `usuarios` SET `nombre_usuario` = '$username'
            WHERE `usuarios`.`idusuario` = '$a' ";
-          $result = $connection2->query($consulta);
+          $result = $connection->query($consulta);
            }
           if(isset($_POST['newemail']) && $_POST['newemail']!=="" ){
             $consulta= "UPDATE `usuarios` SET `email` = '$email'
              WHERE `usuarios`.`idusuario` = '$a' ";
-            $result = $connection2->query($consulta);
+            $result = $connection->query($consulta);
           }
           if(isset($_POST['newpassword']) && $_POST['newpassword']!=="" ){
             $consulta= "UPDATE `usuarios` SET `password` = md5('$password')
              WHERE `usuarios`.`idusuario` = '$a' ";
-            $result = $connection2->query($consulta);
+            $result = $connection->query($consulta);
             }
             if (!$result) {
                echo "error";
@@ -239,7 +205,7 @@ if ($_SESSION["tipo"]!=='admin'){
           echo "Esos datos están en uso";
           header("Refresh:2; url=index.php");
         }
-        unset($connection2);
+        unset($connection);
      ?>
    <?php endif ?>
     <hr>

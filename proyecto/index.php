@@ -2,7 +2,12 @@
 <html lang="en">
 <?php
   session_start();
-require_once("conexionbd.php");
+$nombref="conexionbd.php";
+if(file_exists($nombref)){
+require_once($nombref);
+}else{
+header("Location:instalador/index.php");
+}
 ?>
 
 <head>
@@ -18,7 +23,7 @@ require_once("conexionbd.php");
     include("selectema.php");
     ?>
 
-    <!-- Custom Fonts -->
+        <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>

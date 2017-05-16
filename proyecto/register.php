@@ -122,7 +122,6 @@ require_once("conexionbd.php");
           echo "Ya estás registrado";
           header("Refresh:2; url=index.php");
         }
-         $result->close();
         unset($obj);
         unset($connection);
   ?>
