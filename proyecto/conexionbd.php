@@ -1,3 +1,1 @@
-<?php
-$connection = new mysqli('localhost', 'root', '2asirtriana', 'Proyecto34');
-?>
+<?php $connection = new mysqli("localhost", "root", "2asirtriana", "Proye33");

@@ -46,7 +46,7 @@
         </div>
     </header>
     
-        <button type="submit" class="btn btn-default col-md-2 col-md-offset-5""><a href="segundo.php">Siguiente</a></button>
+        <a href="segundo.php"><button type="submit" class="btn btn-default col-md-2 col-md-offset-5">Siguiente</button></a>
     </body>
     
         <?php

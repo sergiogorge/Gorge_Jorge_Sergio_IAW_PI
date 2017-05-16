@@ -59,7 +59,7 @@ require_once("../conexionbd.php");
         <div class="row">
         <a href="../index.php"><button type="submit" class="btn btn-default col-md-5 col-md-offset-6">No quiero ejemplos</button></a>
         </div>
-       </form>
+       </form> 
         </div>
         <?php else :?>
             <?php

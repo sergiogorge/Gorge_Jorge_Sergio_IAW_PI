@@ -32,7 +32,7 @@ ob_start();
 
 <body>
 
-  
+
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
@@ -46,14 +46,14 @@ ob_start();
                 </div>
             </div>
         </div>
-    </header> 
+    </header>
             <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
                 <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
                 <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-                <form  acion="tercero.php" name="crearbd" id="crearbd"  method="post">
+                <form  action="segundo.php" name="crearbd" id="crearbd"  method="post">
                    <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <?php if (!isset($_POST["nombrebd"])) : ?>
@@ -91,24 +91,34 @@ ob_start();
                 </form>
             </div>
         </div>
-    </div>  
+    </div>
 <?php else :?>
 <?php
 $nombre=$_POST["nombrebd"];
 $ip=$_POST["ip"];
 $nombreusu=$_POST["nombre"];
 $pass=$_POST["password"];
-$a = "<?php\n\$connection = new mysqli('$ip', '$nombreusu', '$pass', '$nombre');\n?>";
+$a = '<?php $connection = new mysqli("'.$ip.'", "'.$nombreusu.'", "'.$pass.'", "'.$nombre.'");';
+
 $file=fopen("../conexionbd.php","w");
 fwrite($file,$a);
 fclose($file);
+
+$connection = new mysqli("$ip","$nombreusu","$pass");
+$consulta= "create database $nombre;";
+ $result = $connection->query($consulta);
+   if (!$result) {
+           echo "Query Error";
+         var_dump($consulta);
+      }
+
 header("Refresh:0; url=tercero.php");
-                       
+
 ?>
         <?php endif ?>
 
          </body>
-    
+
         <?php
         include("../footer.php");
          ?>

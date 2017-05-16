@@ -35,7 +35,7 @@ require_once("../conexionbd.php");
 
 <body>
 
-
+  
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
@@ -49,19 +49,29 @@ require_once("../conexionbd.php");
                 </div>
             </div>
         </div>
-    </header>
+    </header> 
 <?php
+$nombre=$_POST["nombrebd"];
+$ip=$_POST["ip"];
+$nombreusu=$_POST["nombre"];
+$pass=$_POST["password"];
+      $consulta= "create database $nombre;";
+       $result = $connection->query($consulta);
+         if (!$result) {
+                 echo "Query Error";
+               var_dump($consulta);
+            }
 
-            $consulta2="CREATE TABLE categorias (
+            $consulta2="CREATE TABLE $nombre.categorias (
   idCategoria int(5) NOT NULL,
   valor varchar(255) NOT NULL
-);";
+);";    
            $result = $connection->query($consulta2);
               if (!$result) {
                  echo "Query Error";
                var_dump($consulta2);
             }
-     $consulta3="CREATE TABLE comentarios (
+     $consulta3="CREATE TABLE $nombre.comentarios (
   idComentario int(11) NOT NULL,
   idNoticia int(11) NOT NULL,
   idUsuario int(11) NOT NULL,
@@ -73,7 +83,7 @@ require_once("../conexionbd.php");
                  echo "Query Error";
                var_dump($consulta3);
             }
-   $consulta4="CREATE TABLE noticia (
+   $consulta4="CREATE TABLE $nombre.noticia (
   idNoticia int(11) NOT NULL ,
   titular varchar(255) NOT NULL,
   cuerpo text NOT NULL,
@@ -84,14 +94,14 @@ require_once("../conexionbd.php");
   idCategoria int(5) NOT NULL,
   image varchar(255) NOT NULL
 );";
-
+   
     $result = $connection->query($consulta4);
               if (!$result) {
                  echo "Query Error";
                var_dump($consulta4);
-            }
+            }         
 
-    $consulta5="CREATE TABLE usuarios (
+    $consulta5="CREATE TABLE $nombre.usuarios (
   idUsuario int(11) NOT NULL,
   tipo enum('admin','comun') NOT NULL,
   password varchar(50) NOT NULL,
@@ -105,8 +115,8 @@ require_once("../conexionbd.php");
               if (!$result) {
                  echo "Query Error";
                var_dump($consulta5);
-            }
-$consulta6="CREATE TABLE valoraciones (
+            }        
+$consulta6="CREATE TABLE $nombre.valoraciones (
   idValoracion int(11) NOT NULL,
   idNoticia int(11) NOT NULL,
   idUsuario int(11) NOT NULL,
@@ -118,24 +128,24 @@ $consulta6="CREATE TABLE valoraciones (
               if (!$result) {
                  echo "Query Error";
                var_dump($consulta6);
-            }
-   $alter1="ALTER TABLE categorias
+            }     
+   $alter1="ALTER TABLE $nombre.categorias
   ADD PRIMARY KEY (idCategoria);";
              $result = $connection->query($alter1);
               if (!$result) {
                  echo "Query Error";
                var_dump($alter1);
-            }
-    $alter2="ALTER TABLE comentarios
+            }     
+    $alter2="ALTER TABLE $nombre.comentarios
   ADD PRIMARY KEY (idComentario),
   ADD KEY idNoticia (idNoticia),
-  ADD KEY idUsuario (idUsuario);";
+  ADD KEY idUsuario (idUsuario);";    
             $result = $connection->query($alter2);
               if (!$result) {
                  echo "Query Error";
                var_dump($alter2);
-            }
-    $alter3="ALTER TABLE noticia
+            }      
+    $alter3="ALTER TABLE $nombre.noticia
   ADD PRIMARY KEY (idNoticia),
   ADD KEY idUsuario (idUsuario),
   ADD KEY idCategoria (idCategoria);";
@@ -143,16 +153,16 @@ $consulta6="CREATE TABLE valoraciones (
               if (!$result) {
                  echo "Query Error";
                var_dump($alter3);
-            }
-   $alter4="ALTER TABLE usuarios
+            }      
+   $alter4="ALTER TABLE $nombre.usuarios
    ADD PRIMARY KEY (idUsuario);";
          $result = $connection->query($alter4);
               if (!$result) {
                  echo "Query Error";
                var_dump($alter4);
-            }
+            }      
 
-   $alter5="ALTER TABLE valoraciones
+   $alter5="ALTER TABLE $nombre.valoraciones
   ADD PRIMARY KEY (idValoracion),
   ADD KEY idNoticia (idNoticia),
   ADD KEY idUsuario (idUsuario);";
@@ -160,63 +170,63 @@ $consulta6="CREATE TABLE valoraciones (
               if (!$result) {
                  echo "Query Error";
                var_dump($alter5);
-            }
-    $autoin1="ALTER TABLE categorias
-      MODIFY idCategoria int(5) NOT NULL AUTO_INCREMENT;";
+            }                        
+    $autoin1="ALTER TABLE $nombre.categorias
+      MODIFY idCategoria int(5) NOT NULL AUTO_INCREMENT;";    
             $result = $connection->query($autoin1);
               if (!$result) {
                  echo "Query Error";
                var_dump($autoin1);
-            }
+            }            
 
-    $autoin2="ALTER TABLE comentarios
+    $autoin2="ALTER TABLE $nombre.comentarios
   MODIFY idComentario int(11) NOT NULL AUTO_INCREMENT;";
           $result = $connection->query($autoin2);
               if (!$result) {
                  echo "Query Error";
                var_dump($autoin2);
-            }
+            }       
 
-     $autoin3="ALTER TABLE noticia
+     $autoin3="ALTER TABLE $nombre.noticia
   MODIFY idNoticia int(11) NOT NULL AUTO_INCREMENT;";
             $result = $connection->query($autoin3);
               if (!$result) {
                  echo "Query Error";
                var_dump($autoin3);
-            }
+            }              
 
-      $autoin4="ALTER TABLE usuarios
+      $autoin4="ALTER TABLE $nombre.usuarios
   MODIFY idUsuario int(11) NOT NULL AUTO_INCREMENT;";
             $result = $connection->query($autoin4);
               if (!$result) {
                  echo "Query Error";
                var_dump($autoin4);
             }
-      $autoin5="ALTER TABLE valoraciones
+      $autoin5="ALTER TABLE $nombre.valoraciones
   MODIFY idValoracion int(11) NOT NULL AUTO_INCREMENT;";
             $result = $connection->query($autoin5);
               if (!$result) {
                  echo "Query Error";
                var_dump($autoin5);
-            }
-$fk1="ALTER TABLE comentarios
+            }                          
+$fk1="ALTER TABLE $nombre.comentarios
   ADD CONSTRAINT comentarios_ibfk_1 FOREIGN KEY (idNoticia) REFERENCES noticia (idNoticia) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT comentarios_ibfk_2 FOREIGN KEY (idUsuario) REFERENCES usuarios (idUsuario) ON DELETE CASCADE ON UPDATE CASCADE;";
           $result = $connection->query($fk1);
               if (!$result) {
                  echo "Query Error";
                var_dump($fk1);
-            }
-$fk2="ALTER TABLE noticia
+            }         
+$fk2="ALTER TABLE $nombre.noticia
   ADD CONSTRAINT noticia_ibfk_1 FOREIGN KEY (idUsuario) REFERENCES usuarios (idUsuario) ON DELETE CASCADE,
   ADD CONSTRAINT noticia_ibfk_2 FOREIGN KEY (idCategoria) REFERENCES categorias (idCategoria) ON DELETE CASCADE ON UPDATE CASCADE;";
                $result = $connection->query($fk2);
               if (!$result) {
                  echo "Query Error";
                var_dump($fk2);
-            }
+            } 
 
-$fk3="ALTER TABLE valoraciones
+$fk3="ALTER TABLE $nombre.valoraciones
   ADD CONSTRAINT valoraciones_ibfk_1 FOREIGN KEY (idNoticia) REFERENCES noticia (idNoticia) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT valoraciones_ibfk_2 FOREIGN KEY (idUsuario) REFERENCES usuarios (idUsuario);";
                $result = $connection->query($fk3);
@@ -225,12 +235,12 @@ $fk3="ALTER TABLE valoraciones
                var_dump($fk3);
             }else{
                           header("Refresh:0; url=cuarto.php");
-            }
-
+            }      
+                
 ?>
 
          </body>
-
+    
         <?php
         include("../footer.php");
          ?>

@@ -112,11 +112,7 @@ if ($_SESSION["tipo"]!=='admin'){
                                                  if (($obj->valor)==$cat) {
                                                    echo "<option value='$obj->idCategoria' selected>$obj->valor</option>";
                                                  }else{
-<<<<<<< HEAD
                                                    echo "<option value='$obj->idCategoria'>$obj->valor</option>";
-=======
-                                                   echo "<option value='$obj->idCategoria'>$obj2->valor</option>";
->>>>>>> 828410c221daf1064a180fd7efc4f114cb98a69f
                                                  }
                                                }
                                             echo'</select>';
