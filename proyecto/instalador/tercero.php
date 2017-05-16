@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+ob_start();
+?>
+<?php
 require_once("../conexionbd.php");
 ?>
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,73 +50,196 @@ require_once("../conexionbd.php");
             </div>
         </div>
     </header> 
-        <?php if (!isset($_POST["nombre"])) : ?>
-            <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
-                <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
-                <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-                <form name="creadmin" id="creadmin" novalidate method="post">
-                  <!--<form action= "panel-control.php" name="inisesion" id="sesion" novalidate method="post"> -->
-                    <div class="row control-group">
-                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Nombre usuario admin</label>
-                            <input type="text" class="form-control" name="nombre" placeholder="Nombre de usuario admin " id="nombre" required data-validation-required-message="Escriba su nombre de usuario.">
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                         <div class="row control-group">
-                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Email admin</label>
-                            <input type="email" class="form-control" name="email" placeholder="Email admin " id="email" required data-validation-required-message="Escriba su nombre de usuario.">
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                    <div class="row control-group">
-                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Contraseña admin</label>
-                            <input type="password" class="form-control" name="password" placeholder="Contraseña admin " id="password" required data-validation-required-message="Escriba su contraseña.">
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                    <br>
-                    <div id="success"></div>
-                    <div class="row">
-                    <button type="submit" class="btn btn-default col-md-4 col-md-offset-9"">Siguiente</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>  
-    <?php else :?>
-    <?php
-    $userName=$_POST["nombre"];
-    $email=$_POST["email"];
-    $password=$_POST["password"];
-    $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$userName'  AND password = md5('$password') OR email='$email' " ;
-        $result = $connection->query($cons);
-        if ($result->num_rows==0) {
-        $consulta= "INSERT INTO usuarios (idUsuario,tipo,password,email,nombre_usuario,fecha_registro)
-        VALUES (NULL,'admin',md5('$password'),'$email','$userName',sysdate())";
-        $result = $connection->query($consulta);
-       $cons= "UPDATE `usuarios` SET `idUsuario` = 0
-           WHERE `usuarios`.`nombre_usuario` = '$userName'";
-          $result = $connection->query($cons);
-           if (!$result) {
-           echo "error";
-        } else {
-          //echo "Registro completado";
-          header("Refresh:0; url=cuarto.php");
-        }
-         } else {
-          //echo "Ya estás registrado";
-          header("Refresh:0; url=cuarto.php");
-        }
+<?php
+$nombre=$_POST["nombrebd"];
+$ip=$_POST["ip"];
+$nombreusu=$_POST["nombre"];
+$pass=$_POST["password"];
+      $consulta= "create database $nombre;";
+       $result = $connection->query($consulta);
+         if (!$result) {
+                 echo "Query Error";
+               var_dump($consulta);
+            }
 
-    ?>
-    <?php endif ?>
-    </body>
+            $consulta2="CREATE TABLE $nombre.categorias (
+  idCategoria int(5) NOT NULL,
+  valor varchar(255) NOT NULL
+);";    
+           $result = $connection->query($consulta2);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($consulta2);
+            }
+     $consulta3="CREATE TABLE $nombre.comentarios (
+  idComentario int(11) NOT NULL,
+  idNoticia int(11) NOT NULL,
+  idUsuario int(11) NOT NULL,
+  comentario text NOT NULL,
+  fCreacionC date NOT NULL
+);";
+     $result = $connection->query($consulta3);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($consulta3);
+            }
+   $consulta4="CREATE TABLE $nombre.noticia (
+  idNoticia int(11) NOT NULL ,
+  titular varchar(255) NOT NULL,
+  cuerpo text NOT NULL,
+  fCreacion date NOT NULL,
+  fPublicacion date NOT NULL,
+  fModificacion date DEFAULT NULL,
+  idUsuario int(11) NOT NULL,
+  idCategoria int(5) NOT NULL,
+  image varchar(255) NOT NULL
+);";
+   
+    $result = $connection->query($consulta4);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($consulta4);
+            }         
+
+    $consulta5="CREATE TABLE $nombre.usuarios (
+  idUsuario int(11) NOT NULL,
+  tipo enum('admin','comun') NOT NULL,
+  password varchar(50) NOT NULL,
+  email varchar(255) NOT NULL,
+  nombre_usuario varchar(50) NOT NULL,
+  fecha_registro date NOT NULL,
+  tema varchar(255) DEFAULT 'Predeterminado'
+);";
+
+     $result = $connection->query($consulta5);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($consulta5);
+            }        
+$consulta6="CREATE TABLE $nombre.valoraciones (
+  idValoracion int(11) NOT NULL,
+  idNoticia int(11) NOT NULL,
+  idUsuario int(11) NOT NULL,
+  nota int(2) DEFAULT NULL,
+  fValoracion date NOT NULL
+);";
+
+        $result = $connection->query($consulta6);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($consulta6);
+            }     
+   $alter1="ALTER TABLE $nombre.categorias
+  ADD PRIMARY KEY (idCategoria);";
+             $result = $connection->query($alter1);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($alter1);
+            }     
+    $alter2="ALTER TABLE $nombre.comentarios
+  ADD PRIMARY KEY (idComentario),
+  ADD KEY idNoticia (idNoticia),
+  ADD KEY idUsuario (idUsuario);";    
+            $result = $connection->query($alter2);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($alter2);
+            }      
+    $alter3="ALTER TABLE $nombre.noticia
+  ADD PRIMARY KEY (idNoticia),
+  ADD KEY idUsuario (idUsuario),
+  ADD KEY idCategoria (idCategoria);";
+         $result = $connection->query($alter3);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($alter3);
+            }      
+   $alter4="ALTER TABLE $nombre.usuarios
+   ADD PRIMARY KEY (idUsuario);";
+         $result = $connection->query($alter4);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($alter4);
+            }      
+
+   $alter5="ALTER TABLE $nombre.valoraciones
+  ADD PRIMARY KEY (idValoracion),
+  ADD KEY idNoticia (idNoticia),
+  ADD KEY idUsuario (idUsuario);";
+         $result = $connection->query($alter5);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($alter5);
+            }                        
+    $autoin1="ALTER TABLE $nombre.categorias
+      MODIFY idCategoria int(5) NOT NULL AUTO_INCREMENT;";    
+            $result = $connection->query($autoin1);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($autoin1);
+            }            
+
+    $autoin2="ALTER TABLE $nombre.comentarios
+  MODIFY idComentario int(11) NOT NULL AUTO_INCREMENT;";
+          $result = $connection->query($autoin2);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($autoin2);
+            }       
+
+     $autoin3="ALTER TABLE $nombre.noticia
+  MODIFY idNoticia int(11) NOT NULL AUTO_INCREMENT;";
+            $result = $connection->query($autoin3);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($autoin3);
+            }              
+
+      $autoin4="ALTER TABLE $nombre.usuarios
+  MODIFY idUsuario int(11) NOT NULL AUTO_INCREMENT;";
+            $result = $connection->query($autoin4);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($autoin4);
+            }
+      $autoin5="ALTER TABLE $nombre.valoraciones
+  MODIFY idValoracion int(11) NOT NULL AUTO_INCREMENT;";
+            $result = $connection->query($autoin5);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($autoin5);
+            }                          
+$fk1="ALTER TABLE $nombre.comentarios
+  ADD CONSTRAINT comentarios_ibfk_1 FOREIGN KEY (idNoticia) REFERENCES noticia (idNoticia) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT comentarios_ibfk_2 FOREIGN KEY (idUsuario) REFERENCES usuarios (idUsuario) ON DELETE CASCADE ON UPDATE CASCADE;";
+          $result = $connection->query($fk1);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($fk1);
+            }         
+$fk2="ALTER TABLE $nombre.noticia
+  ADD CONSTRAINT noticia_ibfk_1 FOREIGN KEY (idUsuario) REFERENCES usuarios (idUsuario) ON DELETE CASCADE,
+  ADD CONSTRAINT noticia_ibfk_2 FOREIGN KEY (idCategoria) REFERENCES categorias (idCategoria) ON DELETE CASCADE ON UPDATE CASCADE;";
+               $result = $connection->query($fk2);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($fk2);
+            } 
+
+$fk3="ALTER TABLE $nombre.valoraciones
+  ADD CONSTRAINT valoraciones_ibfk_1 FOREIGN KEY (idNoticia) REFERENCES noticia (idNoticia) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT valoraciones_ibfk_2 FOREIGN KEY (idUsuario) REFERENCES usuarios (idUsuario);";
+               $result = $connection->query($fk3);
+              if (!$result) {
+                 echo "Query Error";
+               var_dump($fk3);
+            }else{
+                          header("Refresh:0; url=cuarto.php");
+            }      
+                
+?>
+
+         </body>
     
         <?php
         include("../footer.php");
@@ -129,6 +254,10 @@ require_once("../conexionbd.php");
     <!-- Theme JavaScript -->
     <script src="../js/clean-blog.min.js"></script>
 
+
 </body>
 
 </html>
+<?php
+ob_end_flush();
+?>

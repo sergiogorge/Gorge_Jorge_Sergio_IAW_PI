@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-ob_start();
-?>
-<?php
 require_once("../conexionbd.php");
 ?>
 <head>
@@ -36,6 +33,8 @@ require_once("../conexionbd.php");
 
 <body>
 
+  
+
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
     <header class="intro-header" style="background-image: url('../img/perrito.jpg') ">
@@ -48,37 +47,75 @@ require_once("../conexionbd.php");
                 </div>
             </div>
         </div>
-    </header>
-        <?php if (!isset($_POST["ejemplo"])) : ?>
-        <form class="checkclass" name="ejemplos" id="ejemplos" novalidate method="post">
-        <div class="checkbox">
-        <label><input type="checkbox" name="ejemplo">Datos de ejemplo</label>
-        <br>
-         <input type="submit" value="Enviar">
-        <div id="success"></div>
+    </header> 
+        <?php if (!isset($_POST["nombre"])) : ?>
+            <div class="container">
         <div class="row">
-        <button type="submit" class="btn btn-default col-md-5 col-md-offset-6"><a href="../index.php">No quiero ejemplos<a></button>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+                <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+                <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+                <form name="creadmin" id="creadmin" novalidate method="post">
+                  <!--<form action= "panel-control.php" name="inisesion" id="sesion" novalidate method="post"> -->
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Nombre usuario admin</label>
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre de usuario admin " id="nombre" required data-validation-required-message="Escriba su nombre de usuario.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                         <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Email admin</label>
+                            <input type="email" class="form-control" name="email" placeholder="Email admin " id="email" required data-validation-required-message="Escriba su nombre de usuario.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Contraseña admin</label>
+                            <input type="password" class="form-control" name="password" placeholder="Contraseña admin " id="password" required data-validation-required-message="Escriba su contraseña.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="row">
+                    <button type="submit" class="btn btn-default col-md-4 col-md-offset-9">Siguiente</button>
+                    </div>
+                </form>
+            </div>
         </div>
-       </form> 
-        </div>
-        <?php else :?>
-            <?php
-            $consu="INSERT INTO `categorias` (`idCategoria`, `valor`) VALUES (NULL, 'ejemplo')";
-            $result= $connection->query($consu);
-                   $cons= "UPDATE `categorias` SET `idCategoria` = 0
-           WHERE `categorias`.`valor` = 'ejemplo'";
+    </div>  
+    <?php else :?>
+    <?php
+    $userName=$_POST["nombre"];
+    $email=$_POST["email"];
+    $password=$_POST["password"];
+    $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$userName'  AND password = md5('$password') OR email='$email' " ;
+        $result = $connection->query($cons);
+        if ($result->num_rows==0) {
+        $consulta= "INSERT INTO usuarios (idUsuario,tipo,password,email,nombre_usuario,fecha_registro)
+        VALUES (NULL,'admin',md5('$password'),'$email','$userName',sysdate())";
+        $result = $connection->query($consulta);
+       $cons= "UPDATE `usuarios` SET `idUsuario` = 0
+           WHERE `usuarios`.`nombre_usuario` = '$userName'";
           $result = $connection->query($cons);
-            $consulta=" INSERT INTO `noticia` (`idNoticia`, `titular`, `cuerpo`, `fCreacion`, `fPublicacion`, `fModificacion`, `idUsuario`, `idCategoria`, `image`) VALUES (NULL, 'ejemplo', 'ejemplo', '2000-01-01', '2000-01-01', NULL, '0', '0', '../admin/imagenes/Ejemplo.png')";
-            $result = $connection->query($consulta);
-            if (!$result) {
-                 echo "Query Error";
-               var_dump($consulta);
-            } else {
-              header("Refresh:0; url=../index.php");
-          }
-            ?>
+           if (!$result) {
+           echo "error";
+        } else {
+          //echo "Registro completado";
+          header("Refresh:0; url=cuarto.php");
+        }
+         } else {
+          //echo "Ya estás registrado";
+          header("Refresh:0; url=cuarto.php");
+        }
+
+    ?>
     <?php endif ?>
     </body>
+    
         <?php
         include("../footer.php");
          ?>
@@ -92,10 +129,6 @@ require_once("../conexionbd.php");
     <!-- Theme JavaScript -->
     <script src="../js/clean-blog.min.js"></script>
 
-
 </body>
 
 </html>
-<?php
-ob_end_flush();
-?>
