@@ -21,7 +21,6 @@ if (isset($_POST["tema"])){
                                                       }
                                                       }
                                                     }
-                                                    $result->close();
  unset($obj);
  unset($connection);
 

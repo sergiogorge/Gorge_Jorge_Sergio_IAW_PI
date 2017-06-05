@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
   session_start();
-  require_once("../conexionbd.php");
+  require_once("conexionbd.php");
   if (empty($_GET))
   die("Tienes que pasar algun parametro por GET.");
   //Declaración de la variable item y se le introduce lo que viene de GET
@@ -69,13 +69,7 @@
 
 
                           <?php
-                          $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                          if ($connection->connect_errno) {
-                              printf("Connection failed: %s\n", $connection->connect_error);
-                              exit();
-                          }
-                                     if ($result = $connection->query("SELECT *
+                          if ($result = $connection->query("SELECT *
                                         FROM noticia join usuarios on noticia.idusuario
                                         =usuarios.idusuario where idcategoria='$a' order by idnoticia DESC ;" )) {
                                             if ($result->num_rows==0) {

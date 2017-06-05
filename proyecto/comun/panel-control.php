@@ -20,7 +20,7 @@ ob_start();
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Noticias Gorgé - Contacto</title>
+    <title>Noticias Gorgé</title>
 
     <?php
     include ("selectema.php");

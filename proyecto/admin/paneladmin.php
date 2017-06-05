@@ -151,7 +151,6 @@ ob_start();
                                            }
                                            }
                                           ?>
-                                                                                               <div  id="chart_div2">  </div>
 
                 </div>
                 </div>
@@ -218,7 +217,6 @@ ob_start();
 
                                                       }
                                                      ?>
-                                                     <div  id="chart_div">  </div>
                                  </div>
                                </div>
                                </div>
@@ -334,7 +332,20 @@ ob_start();
                                                 </div>
                                               </div>
                                         </div>
-                                    </br>
+                <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                      <div class="row control-group">
+                         <div class="form-group col-xs-12 floating-label-form-group controls">
+                          <h2>GRÁFICAS CONTROL USUARIOS Y NOTICIAS</h2>   
+
+                         <b class="col-lg-4 col-lg-offset-1 col-md-5 col-md-offset-1">Usuarios<div id="chart_div2"></div></b>
+                         <b class="col-lg-4 col-lg-offset-1 col-md-5 col-md-offset-1">Noticias<div id="chart_div">  </div></b>
+                         </div>
+                         </div>
+                         </div>
+                         </div>
+                         </div>                                    </br>
 
 
 <?php

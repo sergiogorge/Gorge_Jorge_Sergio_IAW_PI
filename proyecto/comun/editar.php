@@ -158,18 +158,16 @@
                echo "error";
             } else {
               echo "Datos cambiados";
-              header("Refresh:2; url=panel-control.php");
+             header("Refresh:2; url=panel-control.php");
               if (isset($_POST["nombreusu"]) && $_POST["nombreusu"]!=""){
               $_SESSION["username"]=$_POST["nombreusu"];
-              header("Refresh:2; url=../index.php");
+             header("Refresh:2; url=../index.php");
             }
              }
           }else {
           echo "Esos datos están en uso";
           header("Refresh:2; url=index.php");
         }
- unset($obj);
- unset($connection);
 
      ?>
    <?php endif ?>

@@ -74,11 +74,7 @@ if ($_SESSION["tipo"]!=='admin'){
                           <label>Editar tipo usuario</label>
                              <select class="form-control" name="edtipousu" placeholder="tipousu" id="edittipousu">
                                <?php
-                               $connection= new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                if ($connection->connect_errno) {
-                                  printf("Connection failed: %s\n", $connection->connect_error);
-                                  exit();
-                                  }
+                              
 
                                if ($result = $connection->query("SELECT * FROM usuarios where idusuario=$a;")) {
                                           $obj = $result->fetch_object();
