@@ -4,7 +4,7 @@ if ($_SESSION["tipo"]!=='admin'){
   header("Location:../error.php");
 }
 session_start();
-require_once("conexionbd.php");
+require_once("../../conexionbd.php");
 if (empty($_GET))
 die("Tienes que pasar algun parametro por GET.");
 $a = $_GET['id'];
