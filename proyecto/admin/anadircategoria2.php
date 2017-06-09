@@ -107,7 +107,6 @@ if ($result2->num_rows==0) {
 }else{
   echo "Esa categoria ya existe";
 }
- $result->close();
  unset($obj);
  unset($connection);
 
