@@ -114,7 +114,7 @@ header("Location:instalador/index.php");
 
                 <hr>
                 <!-- Pager -->
-                     <button type="submit" class="btn btn-default"><a href="todas.php">Todas las noticias</a></button>
+                     <a href="todas.php"><button type="submit" class="btn btn-default">Todas las noticias</button></a>
 
             </div>
         </div>
