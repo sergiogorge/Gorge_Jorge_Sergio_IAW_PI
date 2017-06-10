@@ -26,6 +26,7 @@ header("Location:instalador/index.php");
 }
 ?>
 
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -113,7 +114,7 @@ header("Location:instalador/index.php");
 
                 <hr>
                 <!-- Pager -->
-                     <button type="submit" class="btn btn-default"><a href="todas.php">Todas las noticias</a></button>
+                     <a href="todas.php"><button type="submit" class="btn btn-default">Todas las noticias</button></a>
 
             </div>
         </div>

@@ -87,7 +87,7 @@
 
                 <hr>
                 <!-- Pager -->
-                <button type="submit" class="btn btn-default"><a href="index.php">Menos noticias</a></button>
+              <a href="index.php"><button type="submit" class="btn btn-default">Menos noticias</button></a>
             </div>
         </div>
     </div>
