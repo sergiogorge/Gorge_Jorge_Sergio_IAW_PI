@@ -297,7 +297,7 @@ ob_start();
                                                                        echo"No hay valoraciones";
                                                                      }else{
                                                                       while($obj = $result->fetch_object()) {
-                                                                     echo"<table style='border:1px solid black'>";
+                                                                     echo"<table style='border:1px solid black' class='table'>";
                                                                      echo"<thead>";
                                                                      echo"<tr>";
                                                                      echo"<th>Noticia </th>";

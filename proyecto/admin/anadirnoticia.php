@@ -168,7 +168,6 @@ include_once("header.php");
             }
 
             }
-            $result->close();
            unset($obj);
            unset($connection);
             ?>

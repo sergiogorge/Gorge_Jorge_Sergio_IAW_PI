@@ -45,7 +45,6 @@ if ($result = $connection->query($query)) {
     );
   };
 
-  $result->close();
   unset($obj);
   unset($connection);
 

@@ -11,7 +11,6 @@ $a = $_GET['id'];
     } else {
         mysqli_error($connection);
   }
-  $result->close();
  unset($obj);
  unset($connection);
 
