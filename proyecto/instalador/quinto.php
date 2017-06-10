@@ -57,7 +57,7 @@ require_once("../conexionbd.php");
          <input type="submit" value="Enviar">
         <div id="success"></div>
         <div class="row">
-        <a href="../index.php"><button type="submit" class="btn btn-default col-md-5 col-md-offset-6">No quiero ejemplos</button></a>
+        <p style="text-align: center;"><a href="../index.php">No quiero datos de ejemplo</a></p>
         </div>
        </form>
         </div>
@@ -68,7 +68,7 @@ require_once("../conexionbd.php");
                    $cons= "UPDATE `categorias` SET `idCategoria` = 0
            WHERE `categorias`.`valor` = 'ejemplo'";
           $result = $connection->query($cons);
-            $consulta=" INSERT INTO `noticia` (`idNoticia`, `titular`, `cuerpo`, `fCreacion`, `fPublicacion`, `fModificacion`, `idUsuario`, `idCategoria`, `image`) VALUES (NULL, 'ejemplo', 'ejemplo', '2000-01-01', '2000-01-01', NULL, '0', '0', '../admin/imagenes/Ejemplo.png')";
+            $consulta=" INSERT INTO `noticia` (`idNoticia`, `titular`, `cuerpo`, `fCreacion`, `fPublicacion`, `fModificacion`, `idUsuario`, `idCategoria`, `image`) VALUES (NULL, 'ejemplo', 'ejemplo', '2000-01-01', '2000-01-01', NULL, 0, 0, '../admin/imagenes/Ejemplo.jpg')";
             $result = $connection->query($consulta);
             if (!$result) {
                  echo "Query Error";
@@ -83,7 +83,7 @@ require_once("../conexionbd.php");
         include("../footer.php");
          ?>
     <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src=    "../vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>

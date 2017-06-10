@@ -1,5 +1,11 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
+<?php
+ob_start();
+?>
+<?php
+require_once("../conexionbd.php");
+?>
 <head>
 
     <meta charset="utf-8">
@@ -30,30 +36,54 @@
 
 <body>
 
-  
-
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
     <header class="intro-header" style="background-image: url('../img/perrito.jpg') ">
-        <div class="container">11
+        <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
-                        <h1>Bienvenido al instalador</h1>
+                        <h1>Instalador</h1>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-    
-        <button type="submit" class="btn btn-default col-md-2 col-md-offset-5""><a href="segundo.php">Siguiente</a></button>
+        <?php if (!isset($_POST["ejemplo"])) : ?>
+        <form class="checkclass" name="ejemplos" id="ejemplos" novalidate method="post">
+        <div class="checkbox">
+        <label><input type="checkbox" name="ejemplo">Datos de ejemplo</label>
+        <br>
+         <input type="submit" value="Enviar">
+        <div id="success"></div>
+        <div class="row">
+        <p style="text-align: center;"><a href="../index.php">No quiero datos de ejemplo</a></p>
+        </div>
+       </form>
+        </div>
+        <?php else :?>
+            <?php
+            $consu="INSERT INTO `categorias` (`idCategoria`, `valor`) VALUES (NULL, 'ejemplo')";
+            $result= $connection->query($consu);
+                   $cons= "UPDATE `categorias` SET `idCategoria` = 0
+           WHERE `categorias`.`valor` = 'ejemplo'";
+          $result = $connection->query($cons);
+            $consulta=" INSERT INTO `noticia` (`idNoticia`, `titular`, `cuerpo`, `fCreacion`, `fPublicacion`, `fModificacion`, `idUsuario`, `idCategoria`, `image`) VALUES (NULL, 'ejemplo', 'ejemplo', '2000-01-01', '2000-01-01', NULL, 0, 0, '../admin/imagenes/Ejemplo.jpg')";
+            $result = $connection->query($consulta);
+            if (!$result) {
+                 echo "Query Error";
+               var_dump($consulta);
+            } else {
+              header("Refresh:0; url=../index.php");
+          }
+            ?>
+    <?php endif ?>
     </body>
-    
         <?php
         include("../footer.php");
          ?>
     <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src=    "../vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -62,9 +92,10 @@
     <!-- Theme JavaScript -->
     <script src="../js/clean-blog.min.js"></script>
 
-    <!--Check password -->
-    <script src="../js/checkpassed.js"></script>
 
 </body>
 
 </html>
+<?php
+ob_end_flush();
+?>

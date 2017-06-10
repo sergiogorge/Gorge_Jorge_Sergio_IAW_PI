@@ -27,30 +27,28 @@
     <![endif]-->
 
 </head>
-
 <body>
-
-  
-
-    <!-- Page Header -->
-    <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('../img/perrito.jpg') ">
-        <div class="container">11
+ <header class="intro-header" style="background-image: url('../img/perrito.jpg') ">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
-                        <h1>Bienvenido al instalador</h1>
+                        <h1>Instalador</h1>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-    
-        <a href="segundo.php"><button type="submit" class="btn btn-default col-md-2 col-md-offset-5">Siguiente</button></a>
-        <!--<a href="noinstall.php"><button type="submit" class="btn btn-default col-md-4 col-md-offset-5">No instalar,usar dato antiguos</button></a>-->
-    </body>
-    
-        <?php
+<?php
+$a = '<?php $connection = new mysqli("localhost", "root", "rj.ytJi+Z", "proyecto_blog2");';
+
+$file=fopen("../conexionbd.php","w");
+fwrite($file,$a);
+fclose($file);
+echo "Llevando al inicio con los datos predeterminados";
+header("Refresh:2; url=../index.php");
+?>
+     <?php
         include("../footer.php");
          ?>
     <!-- jQuery -->
@@ -62,10 +60,5 @@
 
     <!-- Theme JavaScript -->
     <script src="../js/clean-blog.min.js"></script>
-
-    <!--Check password -->
-    <script src="../js/checkpassed.js"></script>
-
-</body>
-
+</body> 
 </html>

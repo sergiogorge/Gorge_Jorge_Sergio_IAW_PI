@@ -33,7 +33,7 @@ require_once("../conexionbd.php");
 
 <body>
 
-  
+
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
@@ -47,7 +47,7 @@ require_once("../conexionbd.php");
                 </div>
             </div>
         </div>
-    </header> 
+    </header>
         <?php if (!isset($_POST["nombre"])) : ?>
             <div class="container">
         <div class="row">
@@ -86,7 +86,7 @@ require_once("../conexionbd.php");
                 </form>
             </div>
         </div>
-    </div>  
+    </div>
     <?php else :?>
     <?php
     $userName=$_POST["nombre"];
@@ -105,17 +105,17 @@ require_once("../conexionbd.php");
            echo "error";
         } else {
           //echo "Registro completado";
-          header("Refresh:0; url=cuarto.php");
+          header("Refresh:0; url=quinto.php");
         }
          } else {
           //echo "Ya estás registrado";
-          header("Refresh:0; url=cuarto.php");
+          header("Refresh:0; url=quinto.php");
         }
 
     ?>
     <?php endif ?>
     </body>
-    
+
         <?php
         include("../footer.php");
          ?>

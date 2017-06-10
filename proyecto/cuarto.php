@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-ob_start();
+require_once("../conexionbd.php");
 ?>
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,7 +33,7 @@ ob_start();
 
 <body>
 
-  
+
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
@@ -46,69 +47,75 @@ ob_start();
                 </div>
             </div>
         </div>
-    </header> 
+    </header>
+        <?php if (!isset($_POST["nombre"])) : ?>
             <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
                 <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
                 <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-                <form  name="crearbd" id="crearbd"  method="post">
-                   <div class="row control-group">
+                <form name="creadmin" id="creadmin" novalidate method="post">
+                  <!--<form action= "panel-control.php" name="inisesion" id="sesion" novalidate method="post"> -->
+                    <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <?php if (!isset($_POST["nombrebd"])) : ?>
-                            <label>IP base de datos</label>
-                            <input type="text" class="form-control" name="ip" placeholder="IP base de datos " id="ip" data-validation-required-message="Escriba su ip.">
+                            <label>Nombre usuario admin</label>
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre de usuario admin " id="nombre" required data-validation-required-message="Escriba su nombre de usuario.">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
-                     <div class="row control-group">
+                         <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Nombre base de datos</label>
-                            <input type="text" class="form-control" name="nombrebd" placeholder="Nombre base de datos " id="nombrebd"  data-validation-required-message="Escriba su nombre de base de datos.">
+                            <label>Email admin</label>
+                            <input type="email" class="form-control" name="email" placeholder="Email admin " id="email" required data-validation-required-message="Escriba su nombre de usuario.">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Nombre usuario base de datos</label>
-                            <input type="text" class="form-control" name="nombre" placeholder="Nombre de usuario base de datos " id="nombre"  data-validation-required-message="Escriba su nombre de usuario.">
-                            <p class="help-block text-danger"></p>
-                        </div>
-                    </div>
-                    <div class="row control-group">
-                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                            <label>Contraseña base datos</label>
-                            <input type="password" class="form-control" name="password" placeholder="Contraseña base de datos " id="password"  data-validation-required-message="Escriba su contraseña.">
+                            <label>Contraseña admin</label>
+                            <input type="password" class="form-control" name="password" placeholder="Contraseña admin " id="password" required data-validation-required-message="Escriba su contraseña.">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <br>
                     <div id="success"></div>
                     <div class="row">
-                    <button type="submit" class="btn btn-default col-md-5 col-md-offset-9">Siguiente</button>
+                    <button type="submit" class="btn btn-default col-md-4 col-md-offset-9">Siguiente</button>
                     </div>
                 </form>
             </div>
         </div>
-    </div>  
-<?php else :?>
-<?php
-$nombre=$_POST["nombrebd"];
-$ip=$_POST["ip"];
-$nombreusu=$_POST["nombre"];
-$pass=$_POST["password"];
-$a = "<?php\n\$connection = new mysqli('$ip', '$nombreusu', '$pass', '$nombre');\n?>";
-$file=fopen("../conexionbd.php","w");
-fwrite($file,$a);
-fclose($file);
-header("Refresh:0; url=tercero.php");
-                       
-?>
-        <?php endif ?>
+    </div>
+    <?php else :?>
+    <?php
+    $userName=$_POST["nombre"];
+    $email=$_POST["email"];
+    $password=$_POST["password"];
+    $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$userName'  AND password = md5('$password') OR email='$email' " ;
+        $result = $connection->query($cons);
+        if ($result->num_rows==0) {
+        $consulta= "INSERT INTO usuarios (idUsuario,tipo,password,email,nombre_usuario,fecha_registro)
+        VALUES (NULL,'admin',md5('$password'),'$email','$userName',sysdate())";
+        $result = $connection->query($consulta);
+       $cons= "UPDATE `usuarios` SET `idUsuario` = 0
+           WHERE `usuarios`.`nombre_usuario` = '$userName'";
+          $result = $connection->query($cons);
+           if (!$result) {
+           echo "error";
+        } else {
+          //echo "Registro completado";
+          header("Refresh:0; url=quinto.php");
+        }
+         } else {
+          //echo "Ya estás registrado";
+          header("Refresh:0; url=quinto.php");
+        }
 
-         </body>
-    
+    ?>
+    <?php endif ?>
+    </body>
+
         <?php
         include("../footer.php");
          ?>
@@ -122,10 +129,6 @@ header("Refresh:0; url=tercero.php");
     <!-- Theme JavaScript -->
     <script src="../js/clean-blog.min.js"></script>
 
-
 </body>
 
 </html>
-<?php
-ob_end_flush();
-?>
