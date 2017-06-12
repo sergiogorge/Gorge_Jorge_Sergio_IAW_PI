@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+﻿<!DOCTYPE html> 
 <html lang="en">
 <?php
 ob_start();
@@ -72,7 +72,7 @@ require_once("../conexionbd.php");
 ','François Fillon, el candidato de la derecha a las elecciones presidenciales francesas, fue imputado este martes por desvío de fondos públicos y apropiación indebida de bienes sociales. Los jueces han considerado que existen indicios “graves y concordantes” de que el candidato remuneró a su esposa, Penelope Fillon, como asistente parlamentaria, sin demostrar haber trabajado a cambio del salario.', '2017-03-14', '2017-03-14', NULL, 0, 2, '../admin/imagenes/fillon2.jpg'),
             (4, 'La empresa mexicana que quiere participar en el muro de Trump: “No es para traicionar a nadie”', 'Theodore Atalla, que tiene una pequeña empresa de iluminación industrial en Puebla (México), no solo apoya el muro que quiere levantar Donald Trump en la frontera mexicana sino que ha pedido participar en la construcción. Ecovelocity es la única compañía domiciliada en México entre las más de 600 que se han registrado en el proceso de adjudicación de la barrera, un símbolo electoral para Trump pero una humillación para el país vecino.<br>
 Vimos que estaban empezado con eso y pensamos que íbamos a poder apoyar algo en México”, dice en una entrevista telefónica Atalla, de 58 años.<br>
-Nacido en Egipto, vivió en Estados Unidos y lleva 22 años en México. Tiene nacionalidad egipcia y estadounidense. Tiene la residencia permanente en México y está tramitando la ciudadanía. Se ve el resto de su vida en el país y no considera que su interés por el muro fronterizo sea una afrenta. Lo percibe como una vía para “mejorar” a México. “No es para traicionar a nadie. Es más, por si nosotros en México necesitamos algo, que se comuniquen con nosotros y los apoyamos”, esgrime.', '2017-03-14', '2017-03-14', '2017-05-08', 0, 2, 'imagenes/donald-trump.jpg');";
+Nacido en Egipto, vivió en Estados Unidos y lleva 22 años en México. Tiene nacionalidad egipcia y estadounidense. Tiene la residencia permanente en México y está tramitando la ciudadanía. Se ve el resto de su vida en el país y no considera que su interés por el muro fronterizo sea una afrenta. Lo percibe como una vía para “mejorar” a México. “No es para traicionar a nadie. Es más, por si nosotros en México necesitamos algo, que se comuniquen con nosotros y los apoyamos”, esgrime.', '2017-03-14', '2017-03-14', '2017-05-08', 0, 2, '../admin/imagenes/muro.jpg');";
 
             $result = $connection->query($consulta);
             if (!$result) {

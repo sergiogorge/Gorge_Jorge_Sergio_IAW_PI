@@ -12,7 +12,7 @@ $a5="instalador/quinto.php";
 $a6="instalador/selectema.php";
 if(file_exists($nombref)){
 require_once($nombref);
-/*if(file_exists($a1)){
+if(file_exists($a1)){
 unlink($a1);
 unlink($a2);
 unlink($a3);
@@ -20,7 +20,7 @@ unlink($a4);
 unlink($a5);
 unlink($a6);
 rmdir($directorio);
-}*/
+}
 }else{
 header("Location:instalador/index.php");
 }
