@@ -172,7 +172,7 @@
      ?>
    <?php endif ?>
         <?php
-        include("footer.php");
+        include("footer2.php");
          ?>
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
